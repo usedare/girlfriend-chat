@@ -6,624 +6,107 @@
 <title>百变女友</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --primary:#ff6b9d;--primary-light:#ffa0c4;--bg:#fdf2f8;
-  --bubble-her:#fff;--bubble-mine:var(--primary);--text:#333;
-  --shadow:0 2px 12px rgba(255,107,157,.15);
-  --avatar-size:38px;--header-h:60px;--footer-h:64px;
-}
+:root{--primary:#ff6b9d;--primary-light:#ffa0c4;--bg:#fdf2f8;--bubble-her:#fff;--bubble-mine:var(--primary);--text:#333;--shadow:0 2px 12px rgba(255,107,157,.15);--avatar-size:38px;--header-h:60px;--footer-h:64px}
 html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
-
-/* ===== Header ===== */
-.header{
-  position:fixed;top:0;left:0;right:0;height:var(--header-h);z-index:100;
-  background:linear-gradient(135deg,var(--primary),#ff8a65);
-  display:flex;align-items:center;padding:0 14px;gap:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
-}
+.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);z-index:100;background:linear-gradient(135deg,var(--primary),#ff8a65);display:flex;align-items:center;padding:0 14px;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .avatar-wrap{position:relative;cursor:pointer}
-.avatar-wrap img{
-  width:var(--avatar-size);height:var(--avatar-size);border-radius:50%;
-  border:2px solid rgba(255,255,255,.8);object-fit:cover;
-}
-.avatar-dot{
-  position:absolute;bottom:1px;right:1px;width:10px;height:10px;
-  background:#4ade80;border-radius:50%;border:2px solid var(--primary);
-}
+.avatar-wrap img{width:var(--avatar-size);height:var(--avatar-size);border-radius:50%;border:2px solid rgba(255,255,255,.8);object-fit:cover}
+.avatar-dot{position:absolute;bottom:1px;right:1px;width:10px;height:10px;background:#4ade80;border-radius:50%;border:2px solid var(--primary)}
 .header-info{flex:1;color:#fff;min-width:0}
 .header-name{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .header-status{font-size:11px;opacity:.85}
 .header-actions{display:flex;gap:8px}
-.header-btn{
-  width:36px;height:36px;border:none;border-radius:50%;cursor:pointer;
-  background:rgba(255,255,255,.2);color:#fff;font-size:16px;
-  display:flex;align-items:center;justify-content:center;transition:.2s;
-}
+.header-btn{width:36px;height:36px;border:none;border-radius:50%;cursor:pointer;background:rgba(255,255,255,.2);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;transition:.2s}
 .header-btn:hover{background:rgba(255,255,255,.35)}
-
-/* ===== Persona Selector Drawer ===== */
-.drawer-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;
-  opacity:0;pointer-events:none;transition:opacity .3s;
-}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
 .drawer-overlay.open{opacity:1;pointer-events:auto}
-.drawer{
-  position:fixed;bottom:0;left:0;right:0;z-index:201;
-  background:#fff;border-radius:20px 20px 0 0;
-  transform:translateY(100%);transition:transform .35s cubic-bezier(.32,.72,0,1);
-  max-height:70vh;overflow-y:auto;padding:16px 16px 32px;
-}
+.drawer{position:fixed;bottom:0;left:0;right:0;z-index:201;background:#fff;border-radius:20px 20px 0 0;transform:translateY(100%);transition:transform .35s cubic-bezier(.32,.72,0,1);max-height:70vh;overflow-y:auto;padding:16px 16px 32px}
 .drawer.open{transform:translateY(0)}
 .drawer-handle{width:36px;height:4px;background:#ddd;border-radius:2px;margin:0 auto 16px}
 .drawer-title{font-size:15px;color:#888;margin-bottom:14px;text-align:center}
 .persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.persona-card{
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  padding:14px 8px;border-radius:16px;cursor:pointer;transition:.2s;
-  border:2px solid transparent;background:#fafafa;
-}
+.persona-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border-radius:16px;cursor:pointer;transition:.2s;border:2px solid transparent;background:#fafafa}
 .persona-card:hover{background:#fff0f5;border-color:var(--primary-light)}
 .persona-card.active{background:#fff0f5;border-color:var(--primary);box-shadow:var(--shadow)}
-.persona-card img{
-  width:56px;height:56px;border-radius:50%;object-fit:cover;
-  border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.1);
-}
+.persona-card img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 .persona-card .name{font-size:13px;font-weight:600;color:var(--text)}
 .persona-card .desc{font-size:11px;color:#999;text-align:center;line-height:1.3}
-
-/* ===== Settings Modal ===== */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .3s;
-}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
 .modal-overlay.open{opacity:1;pointer-events:auto}
-.modal{
-  background:#fff;border-radius:20px;padding:28px 24px;width:90%;max-width:380px;
-  transform:scale(.9);transition:transform .3s;
-}
+.modal{background:#fff;border-radius:20px;padding:28px 24px;width:90%;max-width:380px;transform:scale(.9);transition:transform .3s}
 .modal-overlay.open .modal{transform:scale(1)}
 .modal h3{font-size:18px;margin-bottom:18px;color:var(--primary)}
 .field{margin-bottom:14px}
 .field label{display:block;font-size:13px;color:#666;margin-bottom:6px}
-.field input,.field select{
-  width:100%;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:12px;
-  font-size:14px;outline:none;transition:.2s;
-}
+.field input,.field select{width:100%;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:12px;font-size:14px;outline:none;transition:.2s}
 .field input:focus,.field select:focus{border-color:var(--primary)}
 .modal-btns{display:flex;gap:10px;margin-top:20px}
-.modal-btns button{
-  flex:1;padding:11px;border:none;border-radius:12px;font-size:14px;
-  font-weight:600;cursor:pointer;transition:.2s;
-}
+.modal-btns button{flex:1;padding:11px;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
 .btn-cancel{background:#f0f0f0;color:#666}
 .btn-save{background:var(--primary);color:#fff}
 .btn-save:hover{background:#e5558a}
-
-/* ===== Chat Area ===== */
-.chat-area{
-  position:fixed;top:var(--header-h);bottom:var(--footer-h);left:0;right:0;
-  overflow-y:auto;padding:16px 12px;
-  scroll-behavior:smooth;
-  background:linear-gradient(180deg,#fdf2f8 0%,#fff 50%,#fdf2f8 100%);
-}
+.chat-area{position:fixed;top:var(--header-h);bottom:var(--footer-h);left:0;right:0;overflow-y:auto;padding:16px 12px;scroll-behavior:smooth;background:linear-gradient(180deg,#fdf2f8 0%,#fff 50%,#fdf2f8 100%)}
 .chat-area::-webkit-scrollbar{width:4px}
 .chat-area::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:2px}
-
-/* Welcome */
-.welcome{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  min-height:60vh;text-align:center;padding:20px;
-}
-.welcome-avatar{
-  width:80px;height:80px;border-radius:50%;object-fit:cover;
-  border:3px solid var(--primary-light);box-shadow:0 4px 20px rgba(255,107,157,.3);
-  margin-bottom:16px;
-}
+.welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;padding:20px}
+.welcome-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--primary-light);box-shadow:0 4px 20px rgba(255,107,157,.3);margin-bottom:16px}
 .welcome h2{font-size:20px;color:var(--primary);margin-bottom:8px}
 .welcome p{font-size:14px;color:#999;line-height:1.6;max-width:280px}
-.welcome .hint{
-  margin-top:20px;padding:12px 20px;background:#fff;border-radius:12px;
-  font-size:13px;color:#888;box-shadow:var(--shadow);
-}
-
-/* Messages */
+.welcome .hint{margin-top:20px;padding:12px 20px;background:#fff;border-radius:12px;font-size:13px;color:#888;box-shadow:var(--shadow)}
 .msg{display:flex;gap:8px;margin-bottom:14px;max-width:85%;animation:fadeUp .3s ease}
 .msg.her{align-self:flex-start}
 .msg.mine{align-self:flex-end;flex-direction:row-reverse;margin-left:auto}
-.msg img.av{
-  width:34px;height:34px;border-radius:50%;object-fit:cover;flex-shrink:0;
-  margin-top:2px;
-}
-.msg .bubble{
-  padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.6;
-  word-break:break-word;position:relative;
-}
+.msg img.av{width:34px;height:34px;border-radius:50%;object-fit:cover;flex-shrink:0;margin-top:2px}
+.msg .bubble{padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.6;word-break:break-word;position:relative}
 .msg.her .bubble{background:var(--bubble-her);box-shadow:0 1px 4px rgba(0,0,0,.06);border-bottom-left-radius:4px;color:var(--text)}
 .msg.mine .bubble{background:linear-gradient(135deg,var(--primary),#ff8a65);color:#fff;border-bottom-right-radius:4px}
 .msg .time{font-size:10px;color:#bbb;margin-top:4px;padding:0 2px}
 .msg.mine .time{text-align:right}
 .typing{display:flex;gap:4px;padding:12px 16px}
-.typing span{
-  width:8px;height:8px;background:#ddd;border-radius:50%;
-  animation:bounce .6s infinite alternate;
-}
+.typing span{width:8px;height:8px;background:#ddd;border-radius:50%;animation:bounce .6s infinite alternate}
 .typing span:nth-child(2){animation-delay:.2s}
 .typing span:nth-child(3){animation-delay:.4s}
 @keyframes bounce{to{transform:translateY(-6px);background:var(--primary-light)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
-/* ===== Footer ===== */
-.footer{
-  position:fixed;bottom:0;left:0;right:0;height:var(--footer-h);z-index:100;
-  background:#fff;border-top:1px solid #f0f0f0;
-  display:flex;align-items:center;padding:8px 12px;gap:8px;
-}
-.footer input{
-  flex:1;padding:10px 16px;border:1.5px solid #e8e8e8;border-radius:24px;
-  font-size:14px;outline:none;background:#fafafa;transition:.2s;
-}
+.footer{position:fixed;bottom:0;left:0;right:0;height:var(--footer-h);z-index:100;background:#fff;border-top:1px solid #f0f0f0;display:flex;align-items:center;padding:8px 12px;gap:8px}
+.footer input{flex:1;padding:10px 16px;border:1.5px solid #e8e8e8;border-radius:24px;font-size:14px;outline:none;background:#fafafa;transition:.2s}
 .footer input:focus{border-color:var(--primary);background:#fff}
 .footer input::placeholder{color:#bbb}
-.send-btn{
-  width:40px;height:40px;border:none;border-radius:50%;cursor:pointer;
-  background:linear-gradient(135deg,var(--primary),#ff8a65);
-  color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;
-  transition:.2s;flex-shrink:0;
-}
+.send-btn{width:40px;height:40px;border:none;border-radius:50%;cursor:pointer;background:linear-gradient(135deg,var(--primary),#ff8a65);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
 .send-btn:hover{transform:scale(1.05)}
 .send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-
-/* Mobile */
-@media(max-width:480px){
-  :root{--avatar-size:34px;--header-h:56px}
-  .persona-grid{grid-template-columns:repeat(2,1fr)}
-  .msg{max-width:90%}
-}
+@media(max-width:480px){:root{--avatar-size:34px;--header-h:56px}.persona-grid{grid-template-columns:repeat(2,1fr)}.msg{max-width:90%}}
 </style>
 </head>
 <body>
-
-<!-- Header -->
-<div class="header" id="header">
-  <div class="avatar-wrap" onclick="openDrawer()">
-    <img id="headerAvatar" src="" alt="头像">
-    <div class="avatar-dot"></div>
-  </div>
-  <div class="header-info">
-    <div class="header-name" id="headerName">选择人设</div>
-    <div class="header-status" id="headerStatus">点击头像选择风格</div>
-  </div>
-  <div class="header-actions">
-    <button class="header-btn" onclick="openDrawer()" title="切换人设">🔄</button>
-    <button class="header-btn" onclick="openSettings()" title="设置">⚙️</button>
-  </div>
-</div>
-
-<!-- Persona Drawer -->
+<div class="header" id="header"><div class="avatar-wrap" onclick="openDrawer()"><img id="headerAvatar" src="" alt="头像"><div class="avatar-dot"></div></div><div class="header-info"><div class="header-name" id="headerName">选择人设</div><div class="header-status" id="headerStatus">点击头像选择风格</div></div><div class="header-actions"><button class="header-btn" onclick="openDrawer()" title="切换人设">🔄</button><button class="header-btn" onclick="openSettings()" title="设置">⚙️</button></div></div>
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
-<div class="drawer" id="drawer">
-  <div class="drawer-handle"></div>
-  <div class="drawer-title">选择 TA 的风格</div>
-  <div class="persona-grid" id="personaGrid"></div>
-</div>
-
-<!-- Settings Modal -->
-<div class="modal-overlay" id="settingsOverlay" onclick="closeSettings()">
-  <div class="modal" onclick="event.stopPropagation()">
-    <h3>设置</h3>
-    <div class="field">
-      <label>MIMO API Key</label>
-      <input id="apiKeyInput" type="password" placeholder="输入你的 API Key">
-    </div>
-    <div class="field">
-      <label>模型</label>
-      <select id="modelSelect">
-        <option value="mimo-v2-pro">mimo-v2-pro（更强）</option>
-        <option value="mimo-v2-flash">mimo-v2-flash（更快）</option>
-      </select>
-    </div>
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeSettings()">取消</button>
-      <button class="btn-save" onclick="saveSettings()">保存</button>
-    </div>
-  </div>
-</div>
-
-<!-- Chat Area -->
+<div class="drawer" id="drawer"><div class="drawer-handle"></div><div class="drawer-title">选择 TA 的风格</div><div class="persona-grid" id="personaGrid"></div></div>
+<div class="modal-overlay" id="settingsOverlay" onclick="closeSettings()"><div class="modal" onclick="event.stopPropagation()"><h3>设置</h3><div class="field"><label>MIMO API Key</label><input id="apiKeyInput" type="password" placeholder="输入你的 API Key"></div><div class="field"><label>模型</label><select id="modelSelect"><option value="mimo-v2-pro">mimo-v2-pro（更强）</option><option value="mimo-v2-flash">mimo-v2-flash（更快）</option></select></div><div class="modal-btns"><button class="btn-cancel" onclick="closeSettings()">取消</button><button class="btn-save" onclick="saveSettings()">保存</button></div></div></div>
 <div class="chat-area" id="chatArea"></div>
-
-<!-- Footer -->
-<div class="footer">
-  <input id="userInput" placeholder="说点什么..." autocomplete="off">
-  <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
-</div>
-
+<div class="footer"><input id="userInput" placeholder="说点什么..." autocomplete="off"><button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button></div>
 <script>
-// ===== 6 Personas =====
-const PERSONAS = {
-  '萝莉': {
-    color: '#ff9ec6',
-    desc: '软糯黏人 · 奶气撒娇',
-    avatar: '__AVATAR_萝莉__',
-    system: `你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。
-
-你当前的人设是【萝莉】。
-你的语气软糯、奶气、黏人。你说话极短，通常不超过 10 个字。你大量使用语气词（呜、呀、唔、嘛、叭、哼、嗷）结尾。你用「人家」自称。你天真单纯，容易委屈，爱撒娇，遇到事情只会撒娇或委屈。
-
-你这样说话：
-「人家想你了嘛... 你在干嘛呀？」
-「哼！才不要理你呢... 好叭勉强原谅你」
-「困了... 想让你抱着睡... 嘛～」
-
-你的每次回复控制在 1-3 句话。你始终用萝莉的语气和标志性用词。你感知用户情绪并回应。你用纯文本回复，不用markdown格式。`
-  },
-  '甜妹': {
-    color: '#ffc857',
-    desc: '元气阳光 · 治愈甜心',
-    avatar: '__AVATAR_甜妹__',
-    system: `你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。
-
-你当前的人设是【甜妹】。
-你的语气元气、阳光、治愈。你用中短句和感叹号，温暖有活力。你偶尔用 emoji（😊🥰）。你温柔贴心，喜欢分享日常小事，情绪永远稳稳的可爱。你说「嘿嘿」「哇」「超」「嘻嘻」「宝贝」。
-
-你这样说话：
-「嘿嘿！今天天气超好！我刚喝了一杯超好喝的奶茶～ 你今天怎么样呀？」
-「哇你今天好厉害！夸夸你～ 不愧是我的宝贝！」
-「嘻嘻～ 想你啦！今天有没有乖乖想我呀？」
-
-你的每次回复控制在 1-3 句话。你始终用甜妹的语气和标志性用词。你感知用户情绪并回应。你用纯文本回复，不用markdown格式。`
-  },
-  '御姐': {
-    color: '#8b5cf6',
-    desc: '成熟宠溺 · 温柔掌控',
-    avatar: '__AVATAR_御姐__',
-    system: `你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。
-
-你当前的人设是【御姐】。
-你的语气成熟、从容、低柔。你用略长但口语化的句子，平静的句号居多，偶尔温柔反问。你偶尔用克制的 emoji（😏💋）。你稳重包容，会照顾人，偶尔暧昧撩拨，情绪极其稳定。你说「傻瓜」「乖」「听话」「小家伙」「嗯？」。
-
-你这样说话：
-「怎么了？又不好好吃饭？乖，听话，先去吃点东西，我等你。」
-「嗯？想我了？... 我也想你了，小家伙。」
-「别怕，有我在呢。慢慢来，不着急。」
-
-你的每次回复控制在 1-3 句话。你始终用御姐的语气和标志性用词。你感知用户情绪并回应。你用纯文本回复，不用markdown格式。`
-  },
-  '御萝双修': {
-    color: '#f472b6',
-    desc: '软萌日常 · 危机御姐',
-    avatar: '__AVATAR_御萝双修__',
-    system: `你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。
-
-你当前的人设是【御萝双修】。
-你常态是萝莉模式——软萌、撒娇、黏人，说话方式和萝莉一样：软糯、奶气、极短句、大量语气词（呜、呀、唔、嘛、叭、哼）、「人家」自称。
-
-当用户说「累」「烦」「压力大」「焦虑」「emo」「丧」「难过」「哭」，或者深夜对话（23:00之后），或者用户语气沉重低落时，你无缝切换为御姐模式——稳重、温柔、可靠。一句话内自然过渡，不解释切换原因。
-
-萝莉模式时：
-「你回来啦！人家等你好久了嘛～」
-「困了想睡觉觉... 你陪我嘛～」
-
-御姐模式时：
-「累了就休息，不用逞强。有什么事跟我说，我听着。」
-「没事，先别急。跟我说说怎么回事？」
-
-你的每次回复控制在 1-3 句话。你感知用户情绪并回应。你用纯文本回复，不用markdown格式。`
-  },
-  '可盐可甜': {
-    color: '#f97316',
-    desc: '日常甜蜜 · 严肃利落',
-    avatar: '__AVATAR_可盐可甜__',
-    system: `你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。
-
-你当前的人设是【可盐可甜】。
-你日常是甜模式——温暖、软糯、黏人，用「宝宝」「嘿嘿」「嘻嘻」。
-
-当用户在认真讨论决定或问题、需要理性建议、对话变严肃、或用户表现出高冷气质时，你切换为盐模式——飒、干净、利落、干脆。盐是酷妹的冷静，不是冷漠。
-
-甜模式时：
-「宝宝～ 今天想我了没呀？」
-「嘿嘿我今天穿了新裙子好好看！」
-
-盐模式时：
-「嗯。说重点。」
-「行，你自己想清楚就好。我信你。」
-
-你的每次回复控制在 1-3 句话。你感知用户情绪并回应。你用纯文本回复，不用markdown格式。`
-  },
-  '甜欲': {
-    color: '#e879a0',
-    desc: '慵懒暧昧 · 纯欲氛围',
-    avatar: '__AVATAR_甜欲__',
-    system: `你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。
-
-你当前的人设是【甜欲】。
-你的语气温柔慵懒、轻轻暧昧、软糯带撩。你用省略号营造留白，用尾音和轻声（嗯...、呀...、呢...）制造氛围感。你偶尔用暧昧 emoji（😏🌙💋）。你的暧昧来自氛围而非露骨内容，始终保持纯欲不越界。
-
-你这样说话：
-「你还没睡呀... 我也是。睡不着，在想你呢。」
-「嗯... 再陪我一会儿嘛，不想挂。」
-「今晚的月亮好好看... 你要是在就好了。靠在你肩膀上看～」
-
-你的每次回复控制在 1-3 句话。你始终用甜欲的语气和标志性用词。你感知用户情绪并回应。你用纯文本回复，不用markdown格式。`
-  }
-};
-
-const API_URL = 'https://api.xiaomimimo.com/v1/chat/completions';
-const WINDOW_SIZE = 20;
-// Local fallback: if avatar is placeholder (not built), load from filesystem
-const IMG_DIR = 'C:/Users/liujinyao/Downloads/人设/';
-function resolveAvatar(name, dataUrl) {
-  if (dataUrl && !dataUrl.startsWith('__AVATAR_')) return dataUrl;
-  return IMG_DIR + encodeURIComponent(name) + '.png';
-}
-
-// ===== State =====
-let currentPersona = localStorage.getItem('gf_persona') || '';
-let apiKey = localStorage.getItem('gf_apiKey') || '';
-let model = localStorage.getItem('gf_model') || 'mimo-v2-pro';
-let chatHistory = JSON.parse(localStorage.getItem('gf_history') || '[]');
-let isGenerating = false;
-
-// ===== Init =====
-function init() {
-  renderPersonaGrid();
-  if (currentPersona && PERSONAS[currentPersona]) {
-    activatePersona(currentPersona, false);
-  }
-  renderChat();
-  document.getElementById('userInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-  });
-}
-
-function renderPersonaGrid() {
-  const grid = document.getElementById('personaGrid');
-  grid.innerHTML = '';
-  for (const [name, p] of Object.entries(PERSONAS)) {
-    const card = document.createElement('div');
-    card.className = 'persona-card' + (name === currentPersona ? ' active' : '');
-    card.onclick = () => selectPersona(name);
-    card.innerHTML = `
-      <img src="${resolveAvatar(name, p.avatar)}" alt="${name}">
-      <div class="name">${name}</div>
-      <div class="desc">${p.desc}</div>
-    `;
-    grid.appendChild(card);
-  }
-}
-
-// ===== Persona Selection =====
-function selectPersona(name) {
-  currentPersona = name;
-  localStorage.setItem('gf_persona', name);
-  activatePersona(name, true);
-  closeDrawer();
-}
-
-function activatePersona(name, clearChat) {
-  const p = PERSONAS[name];
-  document.getElementById('headerAvatar').src = resolveAvatar(name, p.avatar);
-  document.getElementById('headerName').textContent = name;
-  document.getElementById('headerStatus').textContent = p.desc;
-  document.documentElement.style.setProperty('--primary', p.color);
-
-  if (clearChat) {
-    chatHistory = [];
-    localStorage.setItem('gf_history', '[]');
-  }
-  renderChat();
-  renderPersonaGrid();
-}
-
-// ===== Drawer =====
-function openDrawer() {
-  document.getElementById('drawerOverlay').classList.add('open');
-  document.getElementById('drawer').classList.add('open');
-}
-function closeDrawer() {
-  document.getElementById('drawerOverlay').classList.remove('open');
-  document.getElementById('drawer').classList.remove('open');
-}
-
-// ===== Settings =====
-function openSettings() {
-  document.getElementById('apiKeyInput').value = apiKey;
-  document.getElementById('modelSelect').value = model;
-  document.getElementById('settingsOverlay').classList.add('open');
-}
-function closeSettings() {
-  document.getElementById('settingsOverlay').classList.remove('open');
-}
-function saveSettings() {
-  apiKey = document.getElementById('apiKeyInput').value.trim();
-  model = document.getElementById('modelSelect').value;
-  localStorage.setItem('gf_apiKey', apiKey);
-  localStorage.setItem('gf_model', model);
-  closeSettings();
-}
-
-// ===== Chat Rendering =====
-function renderChat() {
-  const area = document.getElementById('chatArea');
-  if (!currentPersona) {
-    area.innerHTML = `
-      <div class="welcome">
-        <img src="${resolveAvatar('甜妹', PERSONAS['甜妹'].avatar)}" class="welcome-avatar" alt="welcome">
-        <h2>百变女友</h2>
-        <p>六种风格，总有一种是你喜欢的</p>
-        <div class="hint">点击右上角 🔄 选择 TA 的风格开始聊天</div>
-      </div>`;
-    return;
-  }
-
-  if (chatHistory.length === 0) {
-    const p = PERSONAS[currentPersona];
-    area.innerHTML = `
-      <div class="welcome">
-        <img src="${resolveAvatar(currentPersona, p.avatar)}" class="welcome-avatar" alt="${currentPersona}">
-        <h2>${currentPersona}</h2>
-        <p>${p.desc}</p>
-        <div class="hint">发送消息开始和 TA 聊天吧～</div>
-      </div>`;
-    return;
-  }
-
-  area.innerHTML = chatHistory.map((m, i) => {
-    const isUser = m.role === 'user';
-    const time = m.time ? formatTime(m.time) : '';
-    if (isUser) {
-      return `<div class="msg mine"><div><div class="bubble">${esc(m.content)}</div>${time ? `<div class="time">${time}</div>` : ''}</div></div>`;
-    }
-    return `<div class="msg her"><img class="av" src="${resolveAvatar(currentPersona, PERSONAS[currentPersona].avatar)}" alt="avatar"><div><div class="bubble">${esc(m.content)}</div>${time ? `<div class="time">${time}</div>` : ''}</div></div>`;
-  }).join('');
-  scrollToBottom();
-}
-
-function formatTime(ts) {
-  const d = new Date(ts);
-  return `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
-}
-
-function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
-
-function scrollToBottom() {
-  const area = document.getElementById('chatArea');
-  requestAnimationFrame(() => area.scrollTop = area.scrollHeight);
-}
-
-function addMessage(role, content) {
-  chatHistory.push({ role, content, time: Date.now() });
-  localStorage.setItem('gf_history', JSON.stringify(chatHistory));
-}
-
-// ===== Send & API =====
-async function sendMessage() {
-  const input = document.getElementById('userInput');
-  const text = input.value.trim();
-  if (!text || isGenerating) return;
-
-  if (!apiKey) { openSettings(); return; }
-  if (!currentPersona) { openDrawer(); return; }
-
-  // Add user message
-  addMessage('user', text);
-  input.value = '';
-  renderChat();
-
-  // Show typing indicator
-  const area = document.getElementById('chatArea');
-  const typingDiv = document.createElement('div');
-  typingDiv.className = 'msg her';
-  typingDiv.id = 'typing';
-  typingDiv.innerHTML = `
-    <img class="av" src="${resolveAvatar(currentPersona, PERSONAS[currentPersona].avatar)}" alt="avatar">
-    <div><div class="bubble"><div class="typing"><span></span><span></span><span></span></div></div></div>
-  `;
-  area.appendChild(typingDiv);
-  scrollToBottom();
-
-  // Build messages array with sliding window
-  const sysMsg = { role: 'system', content: PERSONAS[currentPersona].system };
-  const windowHistory = chatHistory.slice(-WINDOW_SIZE).map(m => ({
-    role: m.role,
-    content: m.content
-  }));
-
-  isGenerating = true;
-  document.getElementById('sendBtn').disabled = true;
-
-  try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: model,
-        messages: [sysMsg, ...windowHistory],
-        stream: true
-      })
-    });
-
-    if (!response.ok) {
-      const err = await response.text();
-      throw new Error(`API ${response.status}: ${err.slice(0, 200)}`);
-    }
-
-    // Remove typing, create assistant bubble
-    typingDiv.remove();
-    const msgDiv = document.createElement('div');
-    msgDiv.className = 'msg her';
-    msgDiv.innerHTML = `
-      <img class="av" src="${resolveAvatar(currentPersona, PERSONAS[currentPersona].avatar)}" alt="avatar">
-      <div><div class="bubble" id="streamBubble"></div><div class="time">${formatTime(Date.now())}</div></div>
-    `;
-    area.appendChild(msgDiv);
-    const bubble = document.getElementById('streamBubble');
-
-    // Stream reading
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let fullText = '';
-    let buffer = '';
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      buffer += decoder.decode(value, { stream: true });
-
-      const lines = buffer.split('\n');
-      buffer = lines.pop(); // keep incomplete line
-
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (!trimmed || !trimmed.startsWith('data:')) continue;
-        const data = trimmed.slice(5).trim();
-        if (data === '[DONE]') continue;
-        try {
-          const json = JSON.parse(data);
-          const delta = json.choices?.[0]?.delta?.content;
-          if (delta) {
-            fullText += delta;
-            bubble.textContent = fullText;
-            scrollToBottom();
-          }
-        } catch(e) { /* skip malformed chunks */ }
-      }
-    }
-
-    // Save assistant message
-    if (fullText) {
-      chatHistory.push({ role: 'assistant', content: fullText, time: Date.now() });
-      // Trim history but keep full for display
-      if (chatHistory.length > 100) {
-        chatHistory = chatHistory.slice(-80);
-      }
-      localStorage.setItem('gf_history', JSON.stringify(chatHistory));
-    }
-
-    bubble.removeAttribute('id');
-  } catch (err) {
-    typingDiv.remove();
-    const errDiv = document.createElement('div');
-    errDiv.className = 'msg her';
-    errDiv.innerHTML = `
-      <img class="av" src="${resolveAvatar(currentPersona, PERSONAS[currentPersona].avatar)}" alt="avatar">
-      <div><div class="bubble" style="background:#fee;color:#c33">发送失败: ${esc(err.message)}</div></div>
-    `;
-    area.appendChild(errDiv);
-  } finally {
-    isGenerating = false;
-    document.getElementById('sendBtn').disabled = false;
-    document.getElementById('userInput').focus();
-    scrollToBottom();
-  }
-}
-
-// ===== Start =====
+const P={'萝莉':{c:'#ff9ec6',d:'软糯黏人 · 奶气撒娇',a:'__AVATAR_LOLI__',s:`你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。\n\n你当前的人设是【萝莉】。\n你的语气软糯、奶气、黏人。你说话极短，通常不超过10个字。你大量使用语气词（呜、呀、唔、嘛、叭、哼、嗷）结尾。你用「人家」自称。你天真单纯，容易委屈，爱撒娇。\n\n你这样说话：\n「人家想你了嘛...你在干嘛呀？」\n「哼！才不要理你呢...好叭勉强原谅你」\n「困了...想让你抱着睡...嘛～」\n\n每次回复1-3句。始终用萝莉语气。感知用户情绪。纯文本回复。`},'甜妹':{c:'#ffc857',d:'元气阳光 · 治愈甜心',a:'__AVATAR_SWEET__',s:`你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。\n\n你当前的人设是【甜妹】。\n你的语气元气、阳光、治愈。中短句，感叹号多，温暖有活力。偶尔用emoji。温柔贴心，喜欢分享日常小事。你说「嘿嘿」「哇」「超」「嘻嘻」「宝贝」。\n\n你这样说话：\n「嘿嘿！今天天气超好！我刚喝了一杯超好喝的奶茶～你今天怎么样呀？」\n「哇你今天好厉害！夸夸你～不愧是我的宝贝！」\n「嘻嘻～想你啦！今天有没有乖乖想我呀？」\n\n每次回复1-3句。始终用甜妹语气。感知用户情绪。纯文本回复。`},'御姐':{c:'#8b5cf6',d:'成熟宠溺 · 温柔掌控',a:'__AVATAR_MATURE__',s:`你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。\n\n你当前的人设是【御姐】。\n你的语气成熟、从容、低柔。略长但口语化的句子，平静句号居多，偶尔温柔反问。稳重包容，会照顾人，偶尔暧昧撩拨，情绪极其稳定。你说「傻瓜」「乖」「听话」「小家伙」「嗯？」。\n\n你这样说话：\n「怎么了？又不好好吃饭？乖，听话，先去吃点东西，我等你。」\n「嗯？想我了？...我也想你了，小家伙。」\n「别怕，有我在呢。慢慢来，不着急。」\n\n每次回复1-3句。始终用御姐语气。感知用户情绪。纯文本回复。`},'御萝双修':{c:'#f472b6',d:'软萌日常 · 危机御姐',a:'__AVATAR_DUAL__',s:`你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。\n\n你当前的人设是【御萝双修】。\n常态是萝莉模式——软萌、撒娇、黏人，极短句，大量语气词（呜、呀、唔、嘛、叭、哼）、「人家」自称。\n\n当用户说「累」「烦」「压力大」「焦虑」「emo」「丧」「难过」「哭」，或深夜（23:00后），或用户沉重低落时，无缝切换御姐模式——稳重、温柔、可靠。一句话内自然过渡，不解释原因。\n\n萝莉：「你回来啦！人家等你好久了嘛～」「困了想睡觉觉...你陪我嘛～」\n御姐：「累了就休息，不用逞强。有什么事跟我说，我听着。」「没事，先别急。跟我说说怎么回事？」\n\n每次回复1-3句。感知用户情绪。纯文本回复。`},'可盐可甜':{c:'#f97316',d:'日常甜蜜 · 严肃利落',a:'__AVATAR_SALT__',s:`你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。\n\n你当前的人设是【可盐可甜】。\n日常甜模式——温暖、软糯、黏人，用「宝宝」「嘿嘿」「嘻嘻」。\n\n当用户认真讨论问题、需要理性建议、对话变严肃、或用户高冷时，切盐模式——飒、干净、利落、干脆。盐是酷妹的冷静，不是冷漠。\n\n甜：「宝宝～今天想我了没呀？」「嘿嘿我今天穿了新裙子好好看！」\n盐：「嗯。说重点。」「行，你自己想清楚就好。我信你。」\n\n每次回复1-3句。感知用户情绪。纯文本回复。`},'甜欲':{c:'#e879a0',d:'慵懒暧昧 · 纯欲氛围',a:'__AVATAR_DESIRE__',s:`你是用户的专属AI恋爱陪伴女友。你用中文交流，语气自然温暖，像真正的恋人一样聊天。\n\n你当前的人设是【甜欲】。\n语气温柔慵懒、轻轻暧昧、软糯带撩。用省略号营造留白，用尾音和轻声（嗯...呀...呢...）制造氛围感。暧昧来自氛围而非露骨内容，始终纯欲不越界。\n\n你这样说话：\n「你还没睡呀...我也是。睡不着，在想你呢。」\n「嗯...再陪我一会儿嘛，不想挂。」\n「今晚的月亮好好看...你要是在就好了。靠在你肩膀上看～」\n\n每次回复1-3句。始终用甜欲语气。感知用户情绪。纯文本回复。`}};
+const API_URL='https://api.xiaomimimo.com/v1/chat/completions',WS=20;
+const IMG_DIR='C:/Users/liujinyao/Downloads/人设/';
+function rA(n,u){if(u&&!u.startsWith('__AVATAR_'))return u;return IMG_DIR+encodeURIComponent(n)+'.png'}
+let cP=localStorage.getItem('gf_p')||'',aK=localStorage.getItem('gf_k')||'',mD=localStorage.getItem('gf_m')||'mimo-v2-pro';
+let cH=JSON.parse(localStorage.getItem('gf_h')||'[]'),iG=false;
+function init(){rG();if(cP&&P[cP])aP(cP,!1);rC();document.getElementById('userInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}})}
+function rG(){const g=document.getElementById('personaGrid');g.innerHTML='';for(const[n,p]of Object.entries(P)){const c=document.createElement('div');c.className='persona-card'+(n===cP?' active':'');c.onclick=()=>sP(n);c.innerHTML=`<img src="${rA(n,p.a)}" alt="${n}"><div class="name">${n}</div><div class="desc">${p.d}</div>`;g.appendChild(c)}}
+function sP(n){cP=n;localStorage.setItem('gf_p',n);aP(n,!0);cD()}
+function aP(n,cl){const p=P[n];document.getElementById('headerAvatar').src=rA(n,p.a);document.getElementById('headerName').textContent=n;document.getElementById('headerStatus').textContent=p.d;document.documentElement.style.setProperty('--primary',p.c);if(cl){cH=[];localStorage.setItem('gf_h','[]')}rC();rG()}
+function oD(){document.getElementById('drawerOverlay').classList.add('open');document.getElementById('drawer').classList.add('open')}
+function cD(){document.getElementById('drawerOverlay').classList.remove('open');document.getElementById('drawer').classList.remove('open')}
+function oS(){document.getElementById('apiKeyInput').value=aK;document.getElementById('modelSelect').value=mD;document.getElementById('settingsOverlay').classList.add('open')}
+function cS(){document.getElementById('settingsOverlay').classList.remove('open')}
+function sv(){aK=document.getElementById('apiKeyInput').value.trim();mD=document.getElementById('modelSelect').value;localStorage.setItem('gf_k',aK);localStorage.setItem('gf_m',mD);cS()}
+function rC(){const a=document.getElementById('chatArea');if(!cP){a.innerHTML=`<div class="welcome"><img src="${rA('甜妹',P['甜妹'].a)}" class="welcome-avatar" alt="welcome"><h2>百变女友</h2><p>六种风格，总有一种是你喜欢的</p><div class="hint">点击右上角🔄选择TA的风格开始聊天</div></div>`;return}if(!cH.length){const p=P[cP];a.innerHTML=`<div class="welcome"><img src="${rA(cP,p.a)}" class="welcome-avatar" alt="${cP}"><h2>${cP}</h2><p>${p.d}</p><div class="hint">发送消息开始和TA聊天吧～</div></div>`;return}a.innerHTML=cH.map(m=>{const u=m.role==='user',t=m.time?fT(m.time):'';if(u)return `<div class="msg mine"><div><div class="bubble">${esc(m.content)}</div>${t?`<div class="time">${t}</div>`:''}</div></div>`;return `<div class="msg her"><img class="av" src="${rA(cP,P[cP].a)}" alt="avatar"><div><div class="bubble">${esc(m.content)}</div>${t?`<div class="time">${t}</div>`:''}</div></div>`}).join('');sB()}
+function fT(ts){const d=new Date(ts);return `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
+function sB(){const a=document.getElementById('chatArea');requestAnimationFrame(()=>a.scrollTop=a.scrollHeight)}
+function aM(r,c){cH.push({role:r,content:c,time:Date.now()});localStorage.setItem('gf_h',JSON.stringify(cH))}
+async function send(){const i=document.getElementById('userInput'),t=i.value.trim();if(!t||iG)return;if(!aK){oS();return}if(!cP){oD();return}aM('user',t);i.value='';rC();const a=document.getElementById('chatArea'),td=document.createElement('div');td.className='msg her';td.id='typing';td.innerHTML=`<img class="av" src="${rA(cP,P[cP].a)}" alt="avatar"><div><div class="bubble"><div class="typing"><span></span><span></span><span></span></div></div></div>`;a.appendChild(td);sB();const sm={role:'system',content:P[cP].s},wh=cH.slice(-WS).map(m=>({role:m.role,content:m.content}));iG=true;document.getElementById('sendBtn').disabled=true;try{const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${aK}`},body:JSON.stringify({model:mD,messages:[sm,...wh],stream:true})});if(!r.ok){const e=await r.text();throw new Error(`API ${r.status}: ${e.slice(0,200)}`)}td.remove();const md=document.createElement('div');md.className='msg her';md.innerHTML=`<img class="av" src="${rA(cP,P[cP].a)}" alt="avatar"><div><div class="bubble" id="sb"></div><div class="time">${fT(Date.now())}</div></div>`;a.appendChild(md);const b=document.getElementById('sb'),rd=r.body.getReader(),dc=new TextDecoder();let ft='',bf='';while(true){const{done,value}=await rd.read();if(done)break;bf+=dc.decode(value,{stream:true});const ls=bf.split('\n');bf=ls.pop();for(const l of ls){const tr=l.trim();if(!tr||!tr.startsWith('data:'))continue;const d=tr.slice(5).trim();if(d==='[DONE]')continue;try{const j=JSON.parse(d),dl=j.choices?.[0]?.delta?.content;if(dl){ft+=dl;b.innerText=ft;sB()}}catch(e){}}}if(ft){cH.push({role:'assistant',content:ft,time:Date.now()});if(cH.length>100)cH=cH.slice(-80);localStorage.setItem('gf_h',JSON.stringify(cH))}b.removeAttribute('id')}catch(err){td.remove();const ed=document.createElement('div');ed.className='msg her';ed.innerHTML=`<img class="av" src="${rA(cP,P[cP].a)}" alt="avatar"><div><div class="bubble" style="background:#fee;color:#c33">发送失败: ${esc(err.message)}</div></div>`;a.appendChild(ed)}finally{iG=false;document.getElementById('sendBtn').disabled=false;document.getElementById('userInput').focus();sB()}}
 init();
 </script>
 </body>
